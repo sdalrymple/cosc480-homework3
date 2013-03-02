@@ -22,11 +22,24 @@ Background: movies have been added to database
   And  I am on the RottenPotatoes home page
   
 Scenario: restrict to movies with 'PG' or 'R' ratings
-  # enter step(s) to check the 'PG' and 'R' checkboxes
+  # enter steps to check PG and R Boxes:
+  When I check "ratings_PG"
+  And I check "ratings_R"
   # enter step(s) to uncheck all other checkboxes
+  And I uncheck "ratings_G"
+  And I uncheck "ratings_PG-13"
+  And I uncheck "ratings_NC-17"
   # enter step to "submit" the search form on the homepage
+  When I press "ratings_submit"
   # enter step(s) to ensure that PG and R movies are visible
+  Then I should see "PG"
+  And I should see "R"
   # enter step(s) to ensure that other movies are not visible
-
+  And I should not see /^G$/
+  And I should not see /^PG-13$/
+  And I should not see /^NC-17$/
 Scenario: all ratings selected
-  # see assignment
+  When I check the following ratings: G, PG, PG-13, R, NC-17
+  When I press "ratings_submit"
+  Then I should see all the movies
+

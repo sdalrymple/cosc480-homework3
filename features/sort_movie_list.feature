@@ -23,9 +23,9 @@ Background: movies have been added to database
 
 Scenario: sort movies alphabetically
   When I follow "Movie Title"
-  # your steps here
-
+  Then the table should be sorted by title
 Scenario: sort movies in increasing order of release date
   When I follow "Release Date"
+  Then the table should be sorted by release data
   # your steps here
 
